@@ -19,13 +19,12 @@ const reducers: Reducer<CombinedState<RootState>> = combineReducers({
   galleryReducer,
 });
 
-console.log(process.env)
-
 const composeEnhancers =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
-  reducers,
-  composeEnhancers(applyMiddleware(thunkMiddleware))
+  reducers, process.env.NODE_ENV === 'development' ?
+  composeEnhancers(applyMiddleware(thunkMiddleware)) : applyMiddleware(thunkMiddleware)
 );
 
 // const store = createStore(reducers, applyMiddleware(thunkMiddleware));
